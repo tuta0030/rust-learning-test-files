@@ -1,9 +1,9 @@
 mod testfiles {
-    pub mod _vector;
+    pub mod _string3;
 }
 
-use testfiles::_vector;
+use testfiles::_string3::main as _testfile_main;
 
 fn main() {
-    _vector::main();
+    _testfile_main();
 }
