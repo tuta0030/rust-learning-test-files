@@ -1,6 +1,9 @@
 mod testfiles {
+    pub mod _vector;
 }
 
+use testfiles::_vector;
+
 fn main() {
-    println!("Hello World");
+    _vector::main();
 }
