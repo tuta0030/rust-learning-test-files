@@ -1,9 +1,9 @@
 mod testfiles {
-    pub mod _string3;
+    pub mod _string4;
 }
 
-use testfiles::_string3::main as _testfile_main;
+use testfiles::_string4;
 
 fn main() {
-    _testfile_main();
+    _string4::main();
 }
