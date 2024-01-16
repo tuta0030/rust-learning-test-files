@@ -1,9 +1,9 @@
 mod testfiles {
-    pub mod _result5;
+    pub mod _generics4;
 }
 
-use testfiles::_result5;
+use testfiles::_generics4;
 
 fn main() {
-    _result5::main();
+    _generics4::main();
 }
