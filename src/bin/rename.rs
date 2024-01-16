@@ -1,6 +1,7 @@
 use regex::Regex;
 use std::fs::{File, OpenOptions, self}; // 文件系统操作
 use std::io::{BufReader, BufWriter, Read, Write, self, Error, ErrorKind};
+use std::path::{Path, PathBuf};
 
 /// 读取指定文件的所有内容并返回一个字符串结果
 pub fn read_file(filename: &str) -> Result<String, std::io::Error> {
@@ -65,10 +66,23 @@ fn copy_file(src_path: &str, dest_path: &str) -> Result<(), Error> {
     Ok(())
 }
 
+fn check_src (current_dir:PathBuf) {
+    let path = current_dir;
+    let src_path = path.join("src");
+
+    if src_path.exists() && src_path.is_dir() {
+        println!("当前文件中有 src 文件夹，但是也请再次确认是正确的目录");
+    } else {
+        println!("当前文件中没有 src 文件夹， 请确实是正确的目录!");
+        panic!("当前文件路径错误");
+    }
+}
+
 // main.rs - 主入口点
 fn main() -> std::io::Result<()> {
     let current_dir = std::env::current_dir()?;
     println!("当前的工作目录是: {}", current_dir.display());
+    check_src(current_dir.clone());
     // 源文件文件名
     let _filename = format!("{}/src/main.rs", current_dir.display());
     // 输出文件名
@@ -108,6 +122,12 @@ fn main() -> std::io::Result<()> {
         Ok(r) => r,
         Err(e) => panic!("替换文本时出错, {} ", e),
     };
+
+    // 创建新的 test 文件在 testfiles 文件夹下
+    let _out_file_name = format!("{}/src/main.rs", current_dir.display());
+    let _new_test_file_name = format!("{}/src/testfiles/_{}.rs", current_dir.display(),_user_input );
+    let mut _new_test_file = File::create(_new_test_file_name)?;
+    _new_test_file.write_all("pub fn main () {\n}".as_bytes())?;
 
     let _new_content = read_file(&_out_file_name).expect("读取输出文件时出错");
     println!("前后文件是否相同：{}", _file_content == _new_content);

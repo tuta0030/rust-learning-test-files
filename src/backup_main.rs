@@ -1,9 +1,9 @@
 mod testfiles {
-    pub mod _path5;
+    pub mod _hashmap3;
 }
 
-use testfiles::_path5;
+use testfiles::_hashmap3;
 
 fn main() {
-    _path5::main();
+    _hashmap3::main();
 }
